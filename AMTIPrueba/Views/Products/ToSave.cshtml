@@ -1,0 +1,54 @@
+﻿@model ProductsModel
+@*
+
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="card">
+    <div class="card-header">
+        <h1>New product</h1>
+    </div>
+    <div class="card-body">
+        <form asp-action="ToSave" asp-controller="Products" method="post">
+            <div class="form-group">
+                <label for="productClave">Clave</label>
+                <input asp-for="clave" type="text" class="form-control" id="productClave" aria-describedby="emailHelp" placeholder="Enter clave">
+                <small id="inputClave" class="form-text text-muted">Product code.</small>
+            </div>
+            <div class="form-group">
+                <label for="productName">Name</label>
+                <input asp-for="name"  type="text" class="form-control" id="productName" aria-describedby="emailHelp" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+                <label for="productType">Product type</label>
+                <select asp-for="product_type_id" class="form-control" id="productType">
+                    @foreach (var item in ViewBag.product_types)
+                    {
+                        <option value="@item.ID">@item.name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="productStatus">Status</label>
+                <select asp-for="status" class="form-control" id="productStatus">
+                    <option value="enabled">Enabled</option>
+                    <option value="disabled">Disabled</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="productPrice">Price</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input asp-for="price" id="productPrice" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

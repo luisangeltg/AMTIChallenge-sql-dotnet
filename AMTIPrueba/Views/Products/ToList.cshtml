@@ -1,0 +1,61 @@
+﻿@model List<ProductsModel>
+@{
+    ViewData["Title"] = "Listar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h1>Products list</h1>
+    </div>
+    <div class="card-body">
+        <a asp-action="ToSave" asp-controller="Products" class="btn btn-success">
+            <i class="fa-solid fa-plus"></i>
+            New product
+        </a>
+        <hr />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Clave</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Type</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.name</td>
+                        <td>@item.clave</td>
+                        <td>$@item.price</td>
+                        <td>
+                            @if (@item.status == "disabled")
+                            {
+                                <span class="btn btn-danger">@item.status</span>
+                            }
+                            else
+                            {
+                                <span class="btn btn-success">@item.status</span>
+                            }
+                        </td>
+                        <td>@item.product_type</td>
+                        <td>
+                            <a asp-action="ConfirmDelete" asp-controller="Products" asp-route-productId="@item.ID" class="btn btn-danger">
+                                <i class="fas fa-trash"></i>
+                                Delete
+                            </a>
+                            <a asp-action="ToEdit" asp-controller="Products" asp-route-productId="@item.ID" class="btn btn-secondary">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                Modify
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

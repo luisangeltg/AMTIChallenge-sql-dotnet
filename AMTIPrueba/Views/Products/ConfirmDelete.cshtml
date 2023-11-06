@@ -1,0 +1,66 @@
+﻿@model ProductsModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="card">
+    <div class="card-header">
+        <h2>Delete Product: @Html.DisplayTextFor(m => m.name) - @Html.DisplayTextFor(m => m.clave) </h2>
+    </div>
+    <div class="card-body">
+
+
+        <form asp-action="ConfirmDelete" asp-controller="Products" method="post">
+
+            <input asp-for="ID" type="hidden" class="form-control">
+
+            <div class="alert alert-danger" role="alert">
+                <h3>Are you sure to do this action?</h3>
+                <hr />
+                If you delete this product, also will be deleted the follow suppliers related with it
+                <br />
+
+            </div>
+
+            <button type="submit" class="btn btn-danger">Delete anyway</button>
+            <a asp-action="ToList" asp-controller="Products" class="btn btn-warning">Return to List View</a>
+            <hr />
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Supplier Name</th>
+                        <th>Product Name</th>
+                        <th>Supplier Clave</th>
+                        <th>Supplier Price</th>
+                        <th>Product Status</th>
+                        <th>Product Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.suppliers)
+                    {
+                        <tr>
+                            <td>@item.supplier_name</td>
+                            <td>@item.product_name</td>
+                            <td>@item.supplier_clave</td>
+                            <td>@item.supplier_price</td>
+                            <td>
+                                @if (@item.product_status == "disabled")
+                                {
+                                    <span class="btn btn-danger">@item.product_status</span>
+                                }
+                                else
+                                {
+                                    <span class="btn btn-success">@item.product_status</span>
+                                }
+                            </td>
+                            <td>@item.product_type</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
